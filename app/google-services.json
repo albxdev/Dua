@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "781801437042",
+    "project_id": "duadb-de540",
+    "storage_bucket": "duadb-de540.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781801437042:android:aa6c11781616407a318feb",
+        "android_client_info": {
+          "package_name": "com.example.dua"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeaY-q3wqILRI0mWNK3My_ioTYl0e957A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

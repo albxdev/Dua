@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Dua</string>
+    <string name="login_avatar_content_description">Avatar de Inicio de Sesión</string>
+    <string name="email_label">Correo Electrónico</string>
+    <string name="show_password_label">Mostrar contraseña</string>
+    <string name="forgot_password_label">Olvidó su contraseña</string>
+    <string name="sign_up_label">Registrarse</string>
+    <string name="login_button_label">Iniciar Sesión</string>
+</resources>
