@@ -104,6 +104,10 @@ dependencies {
     implementation(libs.androidx.runtime.livedata.v110beta03)
     implementation(libs.androidx.runtime.livedata.v168)
     implementation (libs.androidx.runtime.livedata.v105)
+    implementation (libs.converter.moshi)
+    implementation (libs.moshi.kotlin)
+
+
 
 
 
@@ -130,4 +134,5 @@ dependencies {
 }
 apply(plugin = "com.google.gms.google-services")
 apply (plugin = "com.android.application")
+
 

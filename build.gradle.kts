@@ -14,11 +14,9 @@ plugins {
 
 }
 allprojects {
-
     repositories {
         google()
         mavenCentral()
-
-        // Otros repositorios
+        // Otros repositorios si los tienes
     }
 }

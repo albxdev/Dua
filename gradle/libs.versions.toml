@@ -10,14 +10,20 @@ androidxComposeRuntimeRuntimeLivedata3 = "1.0.5"
 androidxRuntimeLivedata = "1.1.0-beta03"
 androidxRuntimeLivedataVersion = "1.6.8"
 animation = "1.6.7"
+appcompatVersion = "1.4.0"
+azan = "3.0"
 coil = "2.2.2"
 coilCompose = "1.5.0"
 coilComposeVersion = "2.2.2"
 converterGson = "2.9.0"
+coreKtxVersion = "1.7.0"
 firebaseAnalytics = "22.0.1"
+firebaseAuthKtxVersion = "21.0.1"
 firebaseBom = "33.1.0"
+firebaseFirestoreKtxVersion = "24.0.0"
 googleAccompanistScrollbar = "0.17.0"
 googleServices = "4.4.2"
+gson = "2.8.8"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -31,8 +37,12 @@ lifecycleRuntimeKtx = "2.8.1"
 activityCompose = "1.9.0"
 composeBom = "2023.08.00"
 appcompat = "1.7.0"
+loggingInterceptor = "4.9.1"
+material = "1.6.8"
 material3Version = "1.2.1"
 materialIconsExtended = "1.6.7"
+moshiKotlin = "1.12.0"
+navigationComposeVersion = "2.4.0-alpha10"
 navigationFragment = "2.7.7"
 navigationRuntimeKtx = "2.7.7"
 navigationRuntime = "2.7.7"
@@ -47,6 +57,9 @@ roomKtx = "2.6.1"
 runtimeLivedataVersion = "1.2.0"
 squareupRetrofit = "2.9.0"
 ui = "1.6.8"
+uiTooling = "1.6.8"
+uiToolingPreview = "1.6.8"
+uiVersion = "1.2.0"
 vectordrawable = "1.2.0"
 firebaseAuthKtx = "23.0.0"
 runtimeLivedata = "1.6.7"
@@ -61,11 +74,15 @@ accompanist-scrollbar = { module = "com.google.accompanist:accompanist-scrollbar
 accompanist-scrollbar-v0170 = { module = "com.google.accompanist:accompanist-scrollbar", version.ref = "googleAccompanistScrollbar" }
 accompanist-scrollbar-v0200 = { module = "com.google.accompanist:accompanist-scrollbar", version.ref = "accompanistScrollbarVersion" }
 androidx-animation = { module = "androidx.compose.animation:animation", version.ref = "animation" }
+androidx-appcompat-v140 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 androidx-compose-material3-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-ktx-v170 = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
 androidx-lifecycle-livedata-ktx-v250 = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtxVersion" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+androidx-navigation-compose-v240alpha10 = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomKtx" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomKtx" }
@@ -74,17 +91,23 @@ androidx-runtime-livedata-v110beta03 = { module = "androidx.compose.runtime:runt
 androidx-runtime-livedata-v120 = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedataVersion" }
 androidx-runtime-livedata-v168 = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "androidxRuntimeLivedataVersion" }
 androidx-runtime-livedata-v170beta03 = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "androidxComposeRuntimeRuntimeLivedata2" }
+androidx-ui-v120 = { module = "androidx.compose.ui:ui", version.ref = "uiVersion" }
+azan = { module = "com.github.ahmedeltaher:Azan", version.ref = "azan" }
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 coil-compose-v222 = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 coil-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converterGson" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics", version.ref = "firebaseAnalytics" }
 firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+firebase-auth-ktx-v2101 = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtxVersion" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+firebase-firestore-ktx-v2400 = { module = "com.google.firebase:firebase-firestore-ktx", version.ref = "firebaseFirestoreKtxVersion" }
 google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -105,6 +128,8 @@ androidx-navigation-runtime = { group = "androidx.navigation", name = "navigatio
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-coroutines-android-v160 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroidVersion" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
@@ -118,6 +143,8 @@ androidx-material3-android = { group = "androidx.compose.material3", name = "mat
 runtime-livedata-v168 = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "androidxComposeRuntimeRuntimeLivedata" }
 squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "squareupRetrofit" }
 ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

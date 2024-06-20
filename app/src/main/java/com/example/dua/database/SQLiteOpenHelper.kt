@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import com.example.dua.models.Aleya
 import com.example.dua.models.AleyaContract
+import com.example.dua.models.CityCoordinates
+import com.example.dua.models.CityCoordinatesContract
 import com.example.dua.models.QuranSura
 import com.example.dua.models.QuranSuraContract
 
@@ -15,21 +17,22 @@ class QuranDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_ALEYA_TABLE)
         db.execSQL(SQL_CREATE_QURAN_SURA_TABLE)
+        db.execSQL(SQL_CREATE_CITY_COORDINATES_TABLE)
         insertAlFatiha(db)
+        insertCityCoordinates(db)
     }
-
-
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         if (oldVersion < 2) {
             db.execSQL("ALTER TABLE ${QuranSuraContract.TABLE_NAME} ADD COLUMN ${QuranSuraContract.COLUMN_REVELATION} TEXT")
         }
-
         if (oldVersion < 3) {
             db.execSQL("ALTER TABLE ${QuranSuraContract.TABLE_NAME} ADD COLUMN ${QuranSuraContract.COLUMN_JUZ} INTEGER")
         }
+        // Aquí se eliminan las tablas antiguas y se crean de nuevo
         db.execSQL(SQL_DELETE_ALEYA_TABLE)
         db.execSQL(SQL_DELETE_QURAN_SURA_TABLE)
+        db.execSQL(SQL_DELETE_CITY_COORDINATES_TABLE)
         onCreate(db)
     }
 
@@ -57,9 +60,45 @@ class QuranDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
                 "${QuranSuraContract.COLUMN_NAME} TEXT," +
                 "${QuranSuraContract.COLUMN_JUZ} INTEGER)"
 
+        private const val SQL_CREATE_CITY_COORDINATES_TABLE = "CREATE TABLE ${CityCoordinatesContract.TABLE_NAME} (" +
+                "${CityCoordinatesContract.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "${CityCoordinatesContract.COLUMN_CITY} TEXT," +
+                "${CityCoordinatesContract.COLUMN_COUNTRY} TEXT," +
+                "${CityCoordinatesContract.COLUMN_LATITUDE} TEXT," +
+                "${CityCoordinatesContract.COLUMN_LONGITUDE} TEXT," +
+                "${CityCoordinatesContract.COLUMN_TIMEZONE} TEXT)"
 
-                private const val SQL_DELETE_ALEYA_TABLE = "DROP TABLE IF EXISTS ${AleyaContract.TABLE_NAME}"
+        private const val SQL_DELETE_ALEYA_TABLE = "DROP TABLE IF EXISTS ${AleyaContract.TABLE_NAME}"
         private const val SQL_DELETE_QURAN_SURA_TABLE = "DROP TABLE IF EXISTS ${QuranSuraContract.TABLE_NAME}"
+        private const val SQL_DELETE_CITY_COORDINATES_TABLE = "DROP TABLE IF EXISTS ${CityCoordinatesContract.TABLE_NAME}"
+
+        private fun insertCityCoordinates(db: SQLiteDatabase) {
+            val cityCoordinates = listOf(
+                CityCoordinates(1, "Barranquilla", "Colombia", "11.0041072", "-74.8069813", "America/Bogota"),
+                CityCoordinates(2, "Medellín", "Colombia", "6.244203", "-75.5812119", "America/Bogota"),
+                CityCoordinates(3, "Bucaramanga", "Colombia", "7.119349", "-73.1227416", "America/Bogota"),
+                CityCoordinates(4, "Bogotá", "Colombia", "4.7109886", "-74.072092", "America/Bogota")
+                // Puedes agregar más ciudades según sea necesario
+            )
+
+            cityCoordinates.forEach { city ->
+                val values = ContentValues().apply {
+                    put(CityCoordinatesContract.COLUMN_CITY, city.city)
+                    put(CityCoordinatesContract.COLUMN_COUNTRY, city.country)
+                    put(CityCoordinatesContract.COLUMN_LATITUDE, city.latitude)
+                    put(CityCoordinatesContract.COLUMN_LONGITUDE, city.longitude)
+                    put(CityCoordinatesContract.COLUMN_TIMEZONE, city.timezone)
+                }
+
+                // Insertar los valores en la tabla CityCoordinates
+                val newRowId = db.insert(CityCoordinatesContract.TABLE_NAME, null, values)
+                if (newRowId == -1L) {
+                    Log.e("Database", "Error al insertar datos en CityCoordinates")
+                } else {
+                    Log.d("Database", "Insertado en CityCoordinates, ID: $newRowId")
+                }
+            }
+        }
 
         private fun insertAlFatiha(db: SQLiteDatabase) {
             val suraValues = ContentValues().apply {
@@ -68,11 +107,10 @@ class QuranDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
                 put(QuranSuraContract.COLUMN_TRANSLITERATION, "Al-Fatiha")
                 put(QuranSuraContract.COLUMN_SPANISH, "La Apertura")
                 put(QuranSuraContract.COLUMN_TAFSIR, "Tafsir de Al-Fatiha...")
-                put(QuranSuraContract.COLUMN_REVELATION, "La Meca") // Ejemplo de valor de aleyaCount
+                put(QuranSuraContract.COLUMN_REVELATION, "La Meca")
                 put(QuranSuraContract.COLUMN_NAME, "Al-Fatiha")
                 put(QuranSuraContract.COLUMN_JUZ, 1)
             }
-
 
             val suraId = db.insert(QuranSuraContract.TABLE_NAME, null, suraValues)
 
@@ -114,23 +152,23 @@ fun getQuranSuraByNumber(db: SQLiteDatabase, suraNumber: Int): QuranSura? {
 
     var sura: QuranSura? = null
 
-    if (cursor != null && cursor.moveToFirst()) {
-        sura = QuranSura(
-            cursor.getInt(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_ID)),
-            cursor.getInt(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_NUMBER)),
-            cursor.getString(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_ARABIC)),
-            cursor.getString(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_TRANSLITERATION)),
-            cursor.getString(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_SPANISH)),
-            cursor.getString(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_TAFSIR)),
-            cursor.getString(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_REVELATION)),
-            cursor.getString(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_NAME)),
-            cursor.getInt(cursor.getColumnIndexOrThrow(QuranSuraContract.COLUMN_JUZ)),
-
-
+    cursor?.use {
+        if (it.moveToFirst()) {
+            sura = QuranSura(
+                it.getInt(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_ID)),
+                it.getInt(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_NUMBER)),
+                it.getString(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_ARABIC)),
+                it.getString(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_TRANSLITERATION)),
+                it.getString(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_SPANISH)),
+                it.getString(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_TAFSIR)),
+                it.getString(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_REVELATION)),
+                it.getString(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_NAME)),
+                it.getInt(it.getColumnIndexOrThrow(QuranSuraContract.COLUMN_JUZ))
             )
-        Log.d("Database", "Sura found: $sura")
-    } else {
-        Log.d("Database", "No sura found with number: $suraNumber")
+            Log.d("Database", "Sura found: $sura")
+        } else {
+            Log.d("Database", "No sura found with number: $suraNumber")
+        }
     }
     cursor?.close()
     return sura
@@ -165,5 +203,6 @@ fun getAyasBySuraNumber(db: SQLiteDatabase, suraNumber: Int): List<Aleya> {
     }
 
     Log.d("Database", "Number of ayas retrieved: ${ayas.size}")
+    cursor?.close()
     return ayas
 }

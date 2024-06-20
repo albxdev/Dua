@@ -33,7 +33,6 @@ import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.PBEKeySpec
 
 
-
 // Clase principal HomeActivity que hereda de ComponentActivity
 class HomeActivity : ComponentActivity() {
 
@@ -46,7 +45,10 @@ class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) { // Método onCreate
         super.onCreate(savedInstanceState) // Llamada al método onCreate de la superclase
         auth = Firebase.auth // Inicialización de la autenticación con Firebase Auth
+        auth = Firebase.auth // Inicialización de la autenticación con Firebase Auth
         dbHelper = QuranDatabaseHelper(this)
+
+
 
 
         // Define la interfaz de usuario utilizando Jetpack Compose
@@ -120,8 +122,8 @@ class HomeActivity : ComponentActivity() {
 
 
                     composable("prayers") { // Pantalla de oración
-                        // Aquí va la pantalla de oración
-                            PrayerScreen(
+                        // Aquí iría la pantalla de oración
+                        PrayerScreen(
                             navController = navController, // Pasa el controlador de navegación
                             openHome = { navController.navigate("home") }, // Abre la pantalla principal
                             openLogin = { navController.navigate("login") }, // Abre la pantalla de inicio de sesión
@@ -129,6 +131,11 @@ class HomeActivity : ComponentActivity() {
                             openSura = { suraNumber: Int -> navController.navigate("sura/$suraNumber") },
                         )
                     }
+                    composable("settings") { SettingsScreen() }
+
+
+
+
 
 
 
