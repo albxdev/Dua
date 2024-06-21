@@ -3,6 +3,7 @@ package com.example.dua.ui.activities
 
 // Imports
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
@@ -178,9 +179,12 @@ class HomeActivity : ComponentActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    Toast.makeText(this, "Autenticación exitosa", Toast.LENGTH_SHORT).show()
                     navController.navigate("home")
                 } else {
                     // Mostrar mensaje de error
+                    Toast.makeText(this, "Error en la autenticación: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+
                 }
             }
     }
